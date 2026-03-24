@@ -14,8 +14,10 @@ export function AppShell({ children }: AppShellProps) {
 
   return (
     <div className="app-shell">
-      <div className="ambient ambient-top" />
-      <div className="ambient ambient-bottom" />
+      <div className="ambient-wrap">
+        <div className="ambient ambient-top" />
+        <div className="ambient ambient-bottom" />
+      </div>
       <main className="screen-shell">{children}</main>
       <BottomNav pathname={pathname} />
     </div>
