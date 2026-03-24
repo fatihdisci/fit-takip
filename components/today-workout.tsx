@@ -11,7 +11,13 @@ import {
   parseLocalDateString,
   shiftToWorkoutDate
 } from "@/lib/workout-plan";
-import type { LoggedWorkout, WorkoutDraft, WorkoutPayload } from "@/lib/types";
+import {
+  buildPayload,
+  convertLoggedWorkoutToDraft,
+  countCompletedSets,
+  parseNumber
+} from "@/lib/workout-draft";
+import type { LoggedWorkout, WorkoutDraft } from "@/lib/types";
 
 const longDateFormatter = new Intl.DateTimeFormat("tr-TR", {
   weekday: "long",
@@ -28,80 +34,8 @@ function getDraftStorageKey(date: string) {
   return `gymflow:draft:${date}`;
 }
 
-function parseNumber(value: string): number | null {
-  if (value.trim() === "") {
-    return null;
-  }
-
-  const parsed = Number(value);
-  return Number.isFinite(parsed) ? parsed : null;
-}
-
 function formatDisplayDate(dateString: string) {
   return longDateFormatter.format(parseLocalDateString(dateString));
-}
-
-function countCompletedSets(draft: WorkoutDraft | null) {
-  if (!draft) {
-    return 0;
-  }
-
-  return draft.exercises.reduce(
-    (total, exercise) => total + exercise.sets.filter((set) => set.completed).length,
-    0
-  );
-}
-
-function convertLoggedWorkoutToDraft(workout: LoggedWorkout): WorkoutDraft {
-  return {
-    date: workout.date,
-    dayKey: workout.dayKey,
-    dayLabel: workout.dayLabel,
-    exercises: workout.exercises.map((exercise) => ({
-      ...exercise,
-      pairingLabel: exercise.pairingLabel ?? undefined,
-      sets: exercise.sets.map((set) => ({
-        setNumber: set.setNumber,
-        targetReps: set.targetReps,
-        targetDurationMinutes: set.targetDurationMinutes,
-        targetCalories: set.targetCalories,
-        actualWeightKg: set.actualWeightKg?.toString() ?? "",
-        actualReps: set.actualReps?.toString() ?? (set.targetReps?.toString() ?? ""),
-        actualDurationMinutes:
-          set.actualDurationMinutes?.toString() ??
-          (set.targetDurationMinutes?.toString() ?? ""),
-        actualCalories:
-          set.actualCalories?.toString() ?? (set.targetCalories?.toString() ?? ""),
-        completed: set.completed
-      }))
-    }))
-  };
-}
-
-function buildPayload(draft: WorkoutDraft): WorkoutPayload {
-  return {
-    date: draft.date,
-    dayKey: draft.dayKey,
-    dayLabel: draft.dayLabel,
-    exercises: draft.exercises.map((exercise) => ({
-      id: exercise.id,
-      name: exercise.name,
-      pairingLabel: exercise.pairingLabel ?? null,
-      exerciseKind: exercise.exerciseKind,
-      targetSummary: exercise.targetSummary,
-      sets: exercise.sets.map((set) => ({
-        setNumber: set.setNumber,
-        targetReps: set.targetReps ?? null,
-        actualWeightKg: parseNumber(set.actualWeightKg),
-        actualReps: parseNumber(set.actualReps),
-        targetDurationMinutes: set.targetDurationMinutes ?? null,
-        actualDurationMinutes: parseNumber(set.actualDurationMinutes),
-        targetCalories: set.targetCalories ?? null,
-        actualCalories: parseNumber(set.actualCalories),
-        completed: set.completed
-      }))
-    }))
-  };
 }
 
 export function TodayWorkout() {

@@ -135,3 +135,31 @@ export async function GET(_request: Request, { params }: RouteContext) {
     );
   }
 }
+
+export async function DELETE(_request: Request, { params }: RouteContext) {
+  try {
+    const sql = getSql();
+    const date = params.date;
+
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+      return NextResponse.json({ error: "Geçersiz tarih formatı." }, { status: 400 });
+    }
+
+    const result = await sql`
+      delete from workout_logs
+      where workout_date = ${date}
+      returning id
+    `;
+
+    if (result.length === 0) {
+      return NextResponse.json({ error: "Antrenman bulunamadı." }, { status: 404 });
+    }
+
+    return NextResponse.json({ ok: true });
+  } catch (error) {
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : "Antrenman silinemedi." },
+      { status: 500 }
+    );
+  }
+}
