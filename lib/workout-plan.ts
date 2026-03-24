@@ -47,7 +47,7 @@ function cardioExercise(id: string, name: string): WorkoutExerciseTemplate {
     id,
     name,
     exerciseKind: "cardio",
-    targetSummary: "20 min incline + 50 calories",
+    targetSummary: "20 dk eğimli + 50 kalori",
     sets: cardioSet()
   };
 }
@@ -58,44 +58,44 @@ export const workoutTemplates: Record<WorkoutDayKey, WorkoutTemplate> = {
     dayLabel: "Pazartesi",
     shortLabel: "Pzt",
     title: "Push Day",
-    subtitle: "Chest, shoulders, triceps, and incline cardio",
+    subtitle: "Göğüs, omuz, triceps ve kardiyo",
     exercises: [
       exercise("decline-bench", "Decline bench press", strengthSets(4, 12)),
       exercise(
         "incline-bench",
         "Incline bench press",
         strengthSets(4, 12),
-        "Paired with Cable Crossover"
+        "Cable Crossover ile"
       ),
       exercise(
         "cable-crossover",
         "Cable Crossover",
         strengthSets(3, 12),
-        "Paired with Incline Bench Press"
+        "Incline Bench Press ile"
       ),
       exercise(
         "shoulder-press",
         "Shoulder press",
         strengthSets(3, 12),
-        "Paired with Lateral raise"
+        "Lateral raise ile"
       ),
       exercise(
         "lateral-raise-mon",
         "Lateral raise",
         strengthSets(3, 12),
-        "Paired with Shoulder press"
+        "Shoulder press ile"
       ),
       exercise(
         "power-shrug-mon",
         "Power shrug",
         strengthSets(3, 12),
-        "Paired with Facepull"
+        "Facepull ile"
       ),
       exercise(
         "facepull",
         "Facepull",
         strengthSets(3, 12),
-        "Paired with Power shrug"
+        "Power shrug ile"
       ),
       exercise("skull-crusher", "Skull crusher", strengthSets(3, 12)),
       exercise("rope-down", "Rope down", strengthSets(3, 10)),
@@ -107,7 +107,7 @@ export const workoutTemplates: Record<WorkoutDayKey, WorkoutTemplate> = {
     dayLabel: "Çarşamba",
     shortLabel: "Çrş",
     title: "Pull Day",
-    subtitle: "Back, rear delts, biceps, and incline cardio",
+    subtitle: "Sırt, arka omuz, biceps ve kardiyo",
     exercises: [
       exercise("lat-pulldown-wed", "Lat pull down", strengthSets(4, 12)),
       exercise("close-grip-pulldown", "Close grip pull down", strengthSets(3, 12)),
@@ -116,25 +116,25 @@ export const workoutTemplates: Record<WorkoutDayKey, WorkoutTemplate> = {
         "bench-supporting-row",
         "Bench supporting row",
         strengthSets(3, 12),
-        "Paired with Biceps curl"
+        "Biceps curl ile"
       ),
       exercise(
         "biceps-curl",
         "Biceps curl",
         strengthSets(3, 12),
-        "Paired with Bench supporting row"
+        "Bench supporting row ile"
       ),
       exercise(
         "y-raise",
         "Y raise",
         strengthSets(3, 12),
-        "Paired with Hammer curl"
+        "Hammer curl ile"
       ),
       exercise(
         "hammer-curl",
         "Hammer curl",
         strengthSets(3, 12),
-        "Paired with Y raise"
+        "Y raise ile"
       ),
       cardioExercise("cardio-wed", "Incline Cardio")
     ]
@@ -144,7 +144,7 @@ export const workoutTemplates: Record<WorkoutDayKey, WorkoutTemplate> = {
     dayLabel: "Cuma",
     shortLabel: "Cum",
     title: "Legs + Upper Mix",
-    subtitle: "Leg focus with chest, traps, and back finishers",
+    subtitle: "Bacak odaklı, göğüs, trapez ve sırt finişleri",
     exercises: [
       exercise("squat", "Squat", strengthSets(4, 12)),
       exercise("leg-extensions", "Leg extensions", strengthSets(3, 12)),
@@ -155,13 +155,13 @@ export const workoutTemplates: Record<WorkoutDayKey, WorkoutTemplate> = {
         "power-shrug-fri",
         "Power shrug",
         strengthSets(3, 12),
-        "Paired with Lateral raise"
+        "Lateral raise ile"
       ),
       exercise(
         "lateral-raise-fri",
         "Lateral raise",
         strengthSets(3, 12),
-        "Paired with Power shrug"
+        "Power shrug ile"
       ),
       exercise("lat-pulldown-fri", "Lat pull down", strengthSets(4, 10)),
       cardioExercise("cardio-fri", "Incline Cardio")

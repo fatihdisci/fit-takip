@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     default: "GymFlow",
     template: "%s | GymFlow"
   },
-  description: "Mobile-first workout logging PWA with set-based weight and reps tracking.",
+  description: "Set bazında ağırlık ve tekrar takibi yapan kişisel antrenman uygulaması.",
   applicationName: "GymFlow",
   manifest: "/manifest.webmanifest",
   appleWebApp: {
