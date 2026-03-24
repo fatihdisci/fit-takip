@@ -149,7 +149,7 @@ export function TodayWorkout() {
 
           if (!ignore) {
             setDraft(parsedDraft);
-            setStatus("Kaydedilmemiş çalışma local storage'dan geri yüklendi.");
+            setStatus("Kaydedilmemiş taslak geri yüklendi.");
             setIsLoading(false);
           }
           return;
@@ -168,20 +168,20 @@ export function TodayWorkout() {
 
           if (!ignore) {
             setDraft(convertLoggedWorkoutToDraft(data.workout));
-            setStatus("Bu tarih için kayıtlı workout verisi yüklendi.");
+            setStatus("Bu tarihe ait antrenman yüklendi.");
             setIsLoading(false);
           }
           return;
         }
       } catch {
         if (!ignore) {
-          setError("Daha önce kaydedilmiş workout yüklenemedi. Yeni bir draft açıldı.");
+          setError("Kayıtlı antrenman yüklenemedi, yeni taslak oluşturuldu.");
         }
       }
 
       if (!ignore) {
         setDraft(createWorkoutDraft(selectedDate, workoutDayKey));
-        setStatus("Hazırsın. Setleri doldurup antrenmanı kaydedebilirsin.");
+        setStatus("Setleri doldurup antrenmanı kaydedebilirsin.");
         setIsLoading(false);
       }
     }
@@ -272,7 +272,7 @@ export function TodayWorkout() {
       }
 
       window.localStorage.removeItem(getDraftStorageKey(selectedDate));
-      setStatus("Workout Postgres veritabanına kaydedildi.");
+      setStatus("Antrenman kaydedildi.");
     } catch (saveError) {
       setError(
         saveError instanceof Error ? saveError.message : "Workout kaydedilirken bir hata oluştu."
@@ -286,17 +286,13 @@ export function TodayWorkout() {
     <section className="page-stack">
       <div className="hero-panel">
         <div className="hero-copy">
-          <span className="eyebrow">GymFlow</span>
-          <h1>Native-like workout logging</h1>
-          <p>
-            Weight, reps ve tamamlanma durumunu set bazında kaydet. Taslak veriler otomatik
-            olarak cihazda tutulur.
-          </p>
+          <h1>Antrenman Takibi</h1>
+          <p>Ağırlık, tekrar ve tamamlanma durumunu set bazında kaydet.</p>
         </div>
 
         <div className="hero-controls">
           <label className="date-field">
-            <span>Log date</span>
+            <span>Tarih</span>
             <input
               type="date"
               value={selectedDate}
@@ -311,15 +307,15 @@ export function TodayWorkout() {
       <div className="chip-row">
         <div className="chip">
           <strong>{completedSets}</strong>
-          <span>Completed sets</span>
+          <span>Tamamlanan set</span>
         </div>
         <div className="chip">
           <strong>{template?.exercises.length ?? 0}</strong>
-          <span>Exercises</span>
+          <span>Egzersiz</span>
         </div>
         <div className="chip">
           <strong>{template ? template.shortLabel : "--"}</strong>
-          <span>Split day</span>
+          <span>Gün</span>
         </div>
       </div>
 
@@ -331,28 +327,24 @@ export function TodayWorkout() {
           <div className="panel">
             <div className="section-heading">
               <div>
-                <span className="section-label">Rest / Recovery</span>
-                <h2>No scheduled gym session</h2>
+                <span className="section-label">Dinlenme</span>
+                <h2>Bugün salon günü değil</h2>
               </div>
             </div>
-            <p className="muted-copy">
-              Home ekranı bugünün tarihine göre split seçiyor. Dinlenme günlerinde geçmiş veya
-              sıradaki workout gününe hızlıca atlayabilirsin.
-            </p>
             <div className="inline-actions">
               <button
                 type="button"
                 className="secondary-button"
                 onClick={() => setSelectedDate(shiftToWorkoutDate(selectedDate, -1))}
               >
-                Previous workout
+                Önceki antrenman
               </button>
               <button
                 type="button"
                 className="primary-button"
                 onClick={() => setSelectedDate(shiftToWorkoutDate(selectedDate, 1))}
               >
-                Next workout
+                Sonraki antrenman
               </button>
             </div>
           </div>
@@ -360,8 +352,8 @@ export function TodayWorkout() {
           <div className="panel schedule-panel">
             <div className="section-heading">
               <div>
-                <span className="section-label">Your 3-Day Split</span>
-                <h2>Weekly structure</h2>
+                <span className="section-label">3 Günlük Program</span>
+                <h2>Haftalık program</h2>
               </div>
             </div>
 
@@ -371,7 +363,7 @@ export function TodayWorkout() {
                   <strong>{workoutTemplate.dayLabel}</strong>
                   <p>{workoutTemplate.title}</p>
                 </div>
-                <span>{workoutTemplate.exercises.length} items</span>
+                <span>{workoutTemplate.exercises.length} egzersiz</span>
               </div>
             ))}
           </div>
@@ -409,9 +401,9 @@ export function TodayWorkout() {
                 <div className="sets-table">
                   <div className="sets-head">
                     <span>Set</span>
-                    <span>{exercise.exerciseKind === "cardio" ? "Min" : "KG"}</span>
-                    <span>{exercise.exerciseKind === "cardio" ? "Cal" : "Reps"}</span>
-                    <span>Done</span>
+                    <span>{exercise.exerciseKind === "cardio" ? "Dk" : "KG"}</span>
+                    <span>{exercise.exerciseKind === "cardio" ? "Kal" : "Tekrar"}</span>
+                    <span>Tamam</span>
                   </div>
 
                   {exercise.sets.map((set, setIndex) => (
@@ -491,7 +483,7 @@ export function TodayWorkout() {
           <div className="save-bar">
             <div>
               <strong>{shortDateFormatter.format(parseLocalDateString(selectedDate))}</strong>
-              <p>{completedSets} set completed</p>
+              <p>{completedSets} set tamamlandı</p>
             </div>
             <button
               type="button"
@@ -499,7 +491,7 @@ export function TodayWorkout() {
               onClick={() => void saveWorkout()}
               disabled={isSaving || isLoading}
             >
-              {isSaving ? "Saving..." : "Save Workout"}
+              {isSaving ? "Kaydediliyor..." : "Antrenmanı Kaydet"}
             </button>
           </div>
         </>

@@ -9,13 +9,11 @@ type BottomNavProps = {
 const items: Array<{
   href: "/" | "/history";
   label: string;
-  helper: string;
   icon: JSX.Element;
 }> = [
   {
     href: "/",
-    label: "Today",
-    helper: "Home",
+    label: "Bugün",
     icon: (
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path
@@ -31,8 +29,7 @@ const items: Array<{
   },
   {
     href: "/history",
-    label: "History",
-    helper: "Calendar",
+    label: "Geçmiş",
     icon: (
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path
@@ -70,7 +67,6 @@ export function BottomNav({ pathname }: BottomNavProps) {
             <span className="nav-icon">{item.icon}</span>
             <span className="nav-copy">
               <strong>{item.label}</strong>
-              <small>{item.helper}</small>
             </span>
           </Link>
         );

@@ -140,8 +140,8 @@ export function WorkoutHistory() {
     <section className="page-stack">
       <div className="hero-panel">
         <div className="hero-copy">
-          <span className="eyebrow">Progressive Overload</span>
-          <h1>Workout History</h1>
+          <span className="eyebrow">Geçmiş</span>
+          <h1>Antrenman Geçmişi</h1>
           <p>
             Geçmiş log’lara dokunarak o gün yaptığın ağırlıkları ve tekrar sayılarını birebir
             görebilirsin.
@@ -155,8 +155,8 @@ export function WorkoutHistory() {
         <div className="panel">
           <div className="section-heading">
             <div>
-              <span className="section-label">Calendar / List</span>
-              <h2>Past sessions</h2>
+              <span className="section-label">Oturumlar</span>
+              <h2>Geçmiş antrenmanlar</h2>
             </div>
           </div>
 
@@ -183,8 +183,8 @@ export function WorkoutHistory() {
                       <p>{item.dayLabel}</p>
                     </div>
                     <div className="history-metrics">
-                      <span>{item.completedSets} sets</span>
-                      <span>{Math.round(item.volumeKg)} kg vol</span>
+                      <span>{item.completedSets} set</span>
+                      <span>{Math.round(item.volumeKg)} kg</span>
                     </div>
                   </button>
                 );
@@ -196,8 +196,8 @@ export function WorkoutHistory() {
         <div className="panel">
           <div className="section-heading">
             <div>
-              <span className="section-label">Selected Log</span>
-              <h2>{selectedWorkout ? formatDate(selectedWorkout.date) : "Choose a workout"}</h2>
+              <span className="section-label">Seçili antrenman</span>
+              <h2>{selectedWorkout ? formatDate(selectedWorkout.date) : "Antrenman seç"}</h2>
             </div>
           </div>
 
@@ -225,9 +225,9 @@ export function WorkoutHistory() {
                   <div className="sets-table">
                     <div className="sets-head">
                       <span>Set</span>
-                      <span>{exercise.exerciseKind === "cardio" ? "Min" : "KG"}</span>
-                      <span>{exercise.exerciseKind === "cardio" ? "Cal" : "Reps"}</span>
-                      <span>Done</span>
+                      <span>{exercise.exerciseKind === "cardio" ? "Dk" : "KG"}</span>
+                      <span>{exercise.exerciseKind === "cardio" ? "Kal" : "Tekrar"}</span>
+                      <span>Tamam</span>
                     </div>
 
                     {exercise.sets.map((set) => (
@@ -244,7 +244,7 @@ export function WorkoutHistory() {
                             : set.actualReps ?? set.targetReps ?? "-"}
                         </span>
                         <span className={set.completed ? "done-pill done-pill-active" : "done-pill"}>
-                          {set.completed ? "Yes" : "No"}
+                          {set.completed ? "✓" : "–"}
                         </span>
                       </div>
                     ))}
